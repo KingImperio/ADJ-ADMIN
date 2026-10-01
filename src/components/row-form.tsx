@@ -26,16 +26,24 @@ export function RowForm({
     "",
   );
   return (
-    <form action={act} className="card">
+    <form action={act} className="rise rounded-2xl border border-line bg-white p-5 sm:p-7">
       {table.fields.map((f) => (
-        <div key={f.name} className="field">
-          <label htmlFor={f.name}>{f.label}</label>
+        <div key={f.name} className="mb-5 last:mb-0">
+          <label htmlFor={f.name} className="mb-1.5 block text-xs font-bold text-navy-deep">
+            {f.label}
+            {table.readonly?.includes(f.name) && id !== null && (
+              <span className="ml-2 rounded-full bg-[#e2e7ff] px-2 py-0.5 text-[10px] font-bold text-navy">
+                locked
+              </span>
+            )}
+          </label>
           {f.kind === "text" && (
             <input
               id={f.name}
               name={f.name}
               defaultValue={val(row, f.name, f.kind)}
               readOnly={table.readonly?.includes(f.name) && id !== null}
+              className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-foreground transition-colors focus:border-navy focus:outline-none read-only:bg-[#f2f3ff] read-only:text-muted"
             />
           )}
           {f.kind === "textarea" && (
@@ -44,10 +52,16 @@ export function RowForm({
               name={f.name}
               rows={f.rows ?? 3}
               defaultValue={val(row, f.name, f.kind)}
+              className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-foreground transition-colors focus:border-navy focus:outline-none"
             />
           )}
           {f.kind === "select" && (
-            <select id={f.name} name={f.name} defaultValue={val(row, f.name, f.kind)}>
+            <select
+              id={f.name}
+              name={f.name}
+              defaultValue={val(row, f.name, f.kind)}
+              className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-foreground transition-colors focus:border-navy focus:outline-none"
+            >
               {f.options.map((o) => (
                 <option key={o} value={o}>
                   {o}
@@ -62,8 +76,9 @@ export function RowForm({
                 name={f.name}
                 rows={4}
                 defaultValue={val(row, f.name, f.kind)}
+                className="w-full rounded-lg border border-line bg-white px-3 py-2.5 text-sm text-foreground transition-colors focus:border-navy focus:outline-none"
               />
-              {f.hint && <div className="hint">{f.hint}</div>}
+              {f.hint && <p className="mt-1 text-xs text-faint">{f.hint}</p>}
             </>
           )}
           {f.kind === "json" && (
@@ -74,14 +89,18 @@ export function RowForm({
                 rows={12}
                 spellCheck={false}
                 defaultValue={val(row, f.name, f.kind)}
+                className="w-full rounded-lg border border-line bg-[#131b2e] px-3 py-2.5 font-mono text-[13px] leading-relaxed text-[#dae2fd] transition-colors focus:border-navy focus:outline-none"
               />
-              {f.hint && <div className="hint">{f.hint}</div>}
+              {f.hint && <p className="mt-1 font-mono text-xs text-faint">{f.hint}</p>}
             </>
           )}
         </div>
       ))}
-      {err && <p className="err">{err}</p>}
-      <button className="btn" disabled={busy}>
+      {err && <p className="mb-4 text-[13px] font-semibold text-danger">{err}</p>}
+      <button
+        disabled={busy}
+        className="rounded-lg bg-pine px-6 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-pine-deep active:scale-[0.99] disabled:opacity-60"
+      >
         {busy ? "Saving…" : id ? "Save changes" : "Create"}
       </button>
     </form>
