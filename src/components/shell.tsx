@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   LayoutDashboard,
   Settings2,
@@ -50,9 +51,13 @@ export async function Shell({
     <div className="flex min-h-screen">
       <aside className="sticky top-0 flex h-screen w-60 shrink-0 flex-col bg-navy-deep text-white max-md:hidden">
         <Link href="/admin" className="flex items-center gap-3 px-5 pt-6 pb-5">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-pine text-sm font-black text-white">
-            A
-          </span>
+          <Image
+            src="/adj-logo.png"
+            alt="ADJ logo"
+            width={676}
+            height={369}
+            className="h-10 w-10 rounded-xl border border-white/20 object-cover"
+          />
           <span>
             <span className="block text-sm font-bold tracking-tight">ADJ Content</span>
             <span className="block text-[11px] tracking-widest text-mist/70 uppercase">Admin</span>

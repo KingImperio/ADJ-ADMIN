@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useActionState } from "react";
 import { login } from "@/lib/actions";
 
@@ -9,9 +10,13 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-[#f4f6fb] px-4">
       <div className="rise w-full max-w-sm rounded-2xl border border-line bg-white p-8 shadow-xl">
         <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-navy text-sm font-black text-mist">
-            A
-          </span>
+          <Image
+            src="/adj-logo.png"
+            alt="ADJ logo"
+            width={676}
+            height={369}
+            className="h-10 w-10 rounded-xl border border-line object-cover"
+          />
           <span>
             <span className="block text-[15px] font-bold tracking-tight text-navy-deep">
               Welcome back
