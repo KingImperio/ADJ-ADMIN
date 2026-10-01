@@ -35,6 +35,22 @@
   --danger: #ba1a1a;
 }
 
+@font-face {
+  font-family: "Material Symbols Outlined";
+  src: url("/material-symbols-outlined.woff2") format("woff2");
+  font-display: block;
+}
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
+
 @layer base {
   body {
     @apply bg-background text-foreground antialiased;

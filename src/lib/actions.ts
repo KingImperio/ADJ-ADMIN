@@ -34,10 +34,14 @@ function parse(name: string, form: FormData) {
   const cfg = table(name)!;
   const row: Record<string, string | string[] | object> = {};
   for (const f of cfg.fields) {
-    const raw = String(form.get(f.name) ?? "");
-    if (f.kind === "lines") row[f.name] = raw.split("\n").map((s) => s.trim()).filter(Boolean);
-    else if (f.kind === "json") row[f.name] = raw.trim() ? JSON.parse(raw) : f.name === "stats" ? { numbers: [], labels: [] } : [];
-    else row[f.name] = raw;
+    if (f.kind === "lines")
+      row[f.name] = form
+        .getAll(f.name)
+        .flatMap((v) => String(v).split("\n").map((s) => s.trim()).filter(Boolean));
+    else if (f.kind === "json") {
+      const text = String(form.get(f.name) ?? "").trim();
+      row[f.name] = text ? JSON.parse(text) : f.name === "stats" ? { numbers: [], labels: [] } : [];
+    } else row[f.name] = String(form.get(f.name) ?? "");
   }
   return row;
 }
