@@ -11,6 +11,19 @@ async function guard() {
   return user;
 }
 
+/* Tell the live site to purge its cache right after every save, so an edit
+   is visible in seconds instead of after the ISR window. */
+async function purge() {
+  const url = process.env.SITE_REVALIDATE_URL;
+  const secret = process.env.REVALIDATE_SECRET;
+  if (!url || !secret) return;
+  try {
+    await fetch(url, { method: "POST", headers: { "x-revalidate-secret": secret } });
+  } catch {
+    /* site keeps its 5-minute ISR fallback; don't fail the save */
+  }
+}
+
 /* Login / logout (email + password; the admin user is created once via the
    Supabase dashboard or API). */
 export async function login(_prev: string, form: FormData): Promise<string> {
@@ -60,6 +73,7 @@ export async function saveRow(name: string, id: string | null, form: FormData): 
     ? await sb.from(name).update(row).eq(cfg.pk, isNaN(Number(id)) ? id : Number(id))
     : await sb.from(name).insert(row);
   if (error) return error.message;
+  await purge();
   revalidatePath(`/admin/${name}`);
   redirect(`/admin/${name}`);
 }
@@ -70,6 +84,7 @@ export async function removeRow(name: string, id: string): Promise<void> {
   const sb = adminClient();
   const { error } = await sb.from(name).delete().eq(cfg.pk, isNaN(Number(id)) ? id : Number(id));
   if (error) throw new Error(error.message);
+  await purge();
   revalidatePath(`/admin/${name}`);
   redirect(`/admin/${name}`);
 }
