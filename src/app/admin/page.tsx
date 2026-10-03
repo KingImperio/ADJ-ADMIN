@@ -16,6 +16,7 @@ import {
   MapPin,
   Signpost,
   CircleHelp,
+  ClipboardList,
 } from "lucide-react";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -30,6 +31,7 @@ const ICONS: Record<string, LucideIcon> = {
   catchments: MapPin,
   directions: Signpost,
   faqs: CircleHelp,
+  consultation_submissions: ClipboardList,
 };
 
 const TINTS = [

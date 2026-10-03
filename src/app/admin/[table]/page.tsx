@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Plus, Pencil } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Shell } from "@/components/shell";
-import { DeleteButton } from "@/components/delete-button";
+import { TableList } from "@/components/table-list";
 import { adminClient } from "@/lib/supabase";
 import { table, TABLES } from "@/lib/tables";
 import type { LucideIcon } from "lucide-react";
@@ -18,6 +18,7 @@ import {
   MapPin,
   Signpost,
   CircleHelp,
+  ClipboardList,
 } from "lucide-react";
 
 const ICONS: Record<string, LucideIcon> = {
@@ -32,6 +33,7 @@ const ICONS: Record<string, LucideIcon> = {
   catchments: MapPin,
   directions: Signpost,
   faqs: CircleHelp,
+  consultation_submissions: ClipboardList,
 };
 
 const TINTS = [
@@ -45,14 +47,17 @@ export default async function TablePage({ params }: { params: Promise<{ table: s
   const { table: name } = await params;
   const cfg = table(name);
   if (!cfg) notFound();
-  const { data } = await adminClient().from(name).select("*").order(cfg.orderBy, { ascending: !cfg.desc });
+  const { data } = await adminClient()
+    .from(name)
+    .select("*")
+    .order(cfg.orderBy, { ascending: !cfg.desc });
   const rows = (data ?? []) as Record<string, unknown>[];
   const Icon = ICONS[name] ?? FileText;
   const tint = TINTS[TABLES.findIndex((t) => t.name === name) % TINTS.length];
   return (
     <Shell current={name}>
-      <div className="rise overflow-hidden rounded-2xl border border-line bg-white">
-        <div className="flex flex-wrap items-center justify-between gap-3 px-5 pt-5 pb-4">
+      <div className="rise">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-5">
           <div className="flex items-center gap-3">
             <span className={`flex h-10 w-10 items-center justify-center rounded-xl ${tint}`}>
               <Icon className="h-5 w-5" />
@@ -76,86 +81,7 @@ export default async function TablePage({ params }: { params: Promise<{ table: s
             </Link>
           )}
         </div>
-        <table className="w-full border-collapse text-left">
-          <thead>
-            <tr className="border-y border-line/70 bg-[#f7f8fd]">
-              <th className="px-5 py-2.5 text-[11px] font-bold tracking-wider text-faint uppercase">
-                {cfg.list === cfg.pk ? "Key" : "Title"}
-              </th>
-              <th className="px-4 py-2.5 text-[11px] font-bold tracking-wider text-faint uppercase">
-                Key
-              </th>
-              <th className="w-28 px-5 py-2.5 text-right text-[11px] font-bold tracking-wider text-faint uppercase">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => {
-              const id = String(r[cfg.pk]);
-              return (
-                <tr
-                  key={id}
-                  className="border-b border-line/50 transition-colors last:border-0 hover:bg-[#f7f8fd]"
-                >
-                  <td className="max-w-0 px-5 py-3 text-sm">
-                    {typeof r.status === "string" && r.status && (
-                      <span
-                        className={`mb-1 mr-2 inline-flex rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
-                          r.status === "scheduled"
-                            ? "bg-[#98f6c5]/50 text-[#006c48]"
-                            : r.status === "called"
-                              ? "bg-[#ffdcc3]/70 text-[#a34a24]"
-                              : r.status === "declined"
-                                ? "bg-[#ffdad6] text-[#93000a]"
-                                : "bg-[#d6e3ff] text-[#1a365d]"
-                        }`}
-                      >
-                        {r.status}
-                      </span>
-                    )}
-                    {cfg.allowEdit === false ? (
-                      <span className="block truncate font-semibold text-navy-deep">
-                        {String(r[cfg.list] ?? id).slice(0, 90)}
-                      </span>
-                    ) : (
-                      <Link
-                        href={`/admin/${name}/${encodeURIComponent(id)}`}
-                        className="block truncate font-semibold text-navy-deep hover:text-pine hover:underline"
-                      >
-                        {String(r[cfg.list] ?? id).slice(0, 90)}
-                      </Link>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 font-mono text-xs text-faint">{id}</td>
-                  <td className="px-5 py-3">
-                    <span className="flex items-center justify-end gap-1.5">
-                      {cfg.allowEdit !== false && (
-                      <Link
-                        href={`/admin/${name}/${encodeURIComponent(id)}`}
-                        aria-label={`Edit ${id}`}
-                        className="flex h-8 w-8 items-center justify-center rounded-lg border border-line text-muted transition-colors hover:border-navy hover:text-navy"
-                      >
-                        <Pencil className="h-3.5 w-3.5" />
-                      </Link>
-                      )}
-                      {cfg.serial ? (
-                        <DeleteButton table={name} id={id} />
-                      ) : (
-                        <span className="rounded-full bg-[#e2e7ff] px-2 py-0.5 text-[11px] font-bold text-navy">
-                          locked
-                        </span>
-                      )}
-                    </span>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <p className="border-t border-line/70 px-5 py-3 text-xs text-faint tabular-nums">
-          {rows.length} of {rows.length} records
-        </p>
+        <TableList cfg={cfg} rows={rows} />
       </div>
     </Shell>
   );

@@ -13,6 +13,7 @@ import {
   MapPin,
   Signpost,
   CircleHelp,
+  ClipboardList,
   LogOut,
 } from "lucide-react";
 import { logout } from "@/lib/actions";
@@ -31,6 +32,7 @@ const ICONS: Record<string, typeof Settings2> = {
   catchments: MapPin,
   directions: Signpost,
   faqs: CircleHelp,
+  consultation_submissions: ClipboardList,
 };
 
 export async function Shell({
