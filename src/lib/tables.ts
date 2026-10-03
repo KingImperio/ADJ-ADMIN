@@ -18,6 +18,10 @@ export interface Table {
   list: string;
   fields: Field[];
   readonly?: string[];
+  allowNew?: boolean;
+  allowEdit?: boolean;
+  allowDelete?: boolean;
+  desc?: boolean;
 }
 
 const TONES = ["emerald", "navy", "indigo", "amber", "neutral"];
@@ -28,6 +32,7 @@ export const TABLES: Table[] = [
     label: "Site settings",
     pk: "key",
     orderBy: "key",
+    allowNew: false,
     list: "key",
     fields: [{ name: "value", label: "Value", kind: "textarea", rows: 2 }],
     readonly: ["key"],
@@ -37,6 +42,7 @@ export const TABLES: Table[] = [
     label: "Programme track cards",
     pk: "slug",
     orderBy: "sort",
+    allowNew: false,
     list: "title",
     fields: [
       { name: "title", label: "Title", kind: "text" },
@@ -109,6 +115,7 @@ export const TABLES: Table[] = [
     label: "Programme pages",
     pk: "slug",
     orderBy: "slug",
+    allowNew: false,
     list: "slug",
     fields: [
       { name: "h1", label: "Heading", kind: "text" },
@@ -133,6 +140,7 @@ export const TABLES: Table[] = [
     label: "Index pages",
     pk: "page",
     orderBy: "page",
+    allowNew: false,
     list: "page",
     fields: [
       { name: "h1", label: "Heading", kind: "text" },
@@ -183,6 +191,28 @@ export const TABLES: Table[] = [
       { name: "heading", label: "Heading", kind: "text" },
       { name: "copy", label: "Body", kind: "textarea", rows: 3 },
       { name: "sort", label: "Order", kind: "text" },
+    ],
+  },
+  {
+    name: "consultation_submissions",
+    label: "Booking requests",
+    pk: "id",
+    serial: true,
+    orderBy: "created_at",
+    desc: true,
+    list: "name",
+    allowNew: false,
+    allowEdit: false,
+    allowDelete: true,
+    fields: [
+      { name: "name", label: "Student / parent", kind: "text" },
+      { name: "phone", label: "Phone", kind: "text" },
+      { name: "exam", label: "Target exam", kind: "select", options: ["JAMB / UTME Clinic", "WAEC / NECO Intensive", "JUPEB Direct Entry", "IELTS / SAT Prep", "CAPS Admissions Advisory", "CBT Simulator Lab Only"] },
+      { name: "level", label: "Level", kind: "text" },
+      { name: "mode", label: "Attendance", kind: "text" },
+      { name: "notes", label: "Course / school", kind: "textarea", rows: 3 },
+      { name: "source", label: "Source page", kind: "text" },
+      { name: "created_at", label: "Submitted", kind: "text" },
     ],
   },
   {

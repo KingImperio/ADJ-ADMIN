@@ -13,7 +13,7 @@ export default async function EditPage({
 }) {
   const { table: name, id } = await params;
   const cfg = table(name);
-  if (!cfg) notFound();
+  if (!cfg || cfg.allowEdit === false) notFound();
   const key = isNaN(Number(id)) ? decodeURIComponent(id) : Number(id);
   const { data } = await adminClient().from(name).select("*").eq(cfg.pk, key).single();
   if (!data) notFound();

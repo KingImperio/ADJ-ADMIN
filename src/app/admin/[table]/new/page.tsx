@@ -8,7 +8,7 @@ import { RowForm } from "@/components/row-form";
 export default async function NewPage({ params }: { params: Promise<{ table: string }> }) {
   const { table: name } = await params;
   const cfg = table(name);
-  if (!cfg || cfg.readonly) notFound();
+  if (!cfg || cfg.allowNew === false) notFound();
   return (
     <Shell current={name}>
       <Link

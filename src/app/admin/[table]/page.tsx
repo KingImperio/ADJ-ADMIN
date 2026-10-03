@@ -45,7 +45,7 @@ export default async function TablePage({ params }: { params: Promise<{ table: s
   const { table: name } = await params;
   const cfg = table(name);
   if (!cfg) notFound();
-  const { data } = await adminClient().from(name).select("*").order(cfg.orderBy);
+  const { data } = await adminClient().from(name).select("*").order(cfg.orderBy, { ascending: !cfg.desc });
   const rows = (data ?? []) as Record<string, unknown>[];
   const Icon = ICONS[name] ?? FileText;
   const tint = TINTS[TABLES.findIndex((t) => t.name === name) % TINTS.length];
@@ -66,7 +66,7 @@ export default async function TablePage({ params }: { params: Promise<{ table: s
               </span>
             </span>
           </div>
-          {!cfg.readonly && (
+          {cfg.allowNew !== false && (
             <Link
               href={`/admin/${name}/new`}
               className="inline-flex items-center gap-1.5 rounded-xl bg-pine px-4 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:bg-pine-deep active:scale-95"
@@ -99,16 +99,23 @@ export default async function TablePage({ params }: { params: Promise<{ table: s
                   className="border-b border-line/50 transition-colors last:border-0 hover:bg-[#f7f8fd]"
                 >
                   <td className="max-w-0 px-5 py-3 text-sm">
-                    <Link
-                      href={`/admin/${name}/${encodeURIComponent(id)}`}
-                      className="block truncate font-semibold text-navy-deep hover:text-pine hover:underline"
-                    >
-                      {String(r[cfg.list] ?? id).slice(0, 90)}
-                    </Link>
+                    {cfg.allowEdit === false ? (
+                      <span className="block truncate font-semibold text-navy-deep">
+                        {String(r[cfg.list] ?? id).slice(0, 90)}
+                      </span>
+                    ) : (
+                      <Link
+                        href={`/admin/${name}/${encodeURIComponent(id)}`}
+                        className="block truncate font-semibold text-navy-deep hover:text-pine hover:underline"
+                      >
+                        {String(r[cfg.list] ?? id).slice(0, 90)}
+                      </Link>
+                    )}
                   </td>
                   <td className="px-4 py-3 font-mono text-xs text-faint">{id}</td>
                   <td className="px-5 py-3">
                     <span className="flex items-center justify-end gap-1.5">
+                      {cfg.allowEdit !== false && (
                       <Link
                         href={`/admin/${name}/${encodeURIComponent(id)}`}
                         aria-label={`Edit ${id}`}
@@ -116,6 +123,7 @@ export default async function TablePage({ params }: { params: Promise<{ table: s
                       >
                         <Pencil className="h-3.5 w-3.5" />
                       </Link>
+                      )}
                       {cfg.serial ? (
                         <DeleteButton table={name} id={id} />
                       ) : (
