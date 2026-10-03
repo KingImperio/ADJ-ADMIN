@@ -99,6 +99,21 @@ export default async function TablePage({ params }: { params: Promise<{ table: s
                   className="border-b border-line/50 transition-colors last:border-0 hover:bg-[#f7f8fd]"
                 >
                   <td className="max-w-0 px-5 py-3 text-sm">
+                    {typeof r.status === "string" && r.status && (
+                      <span
+                        className={`mb-1 mr-2 inline-flex rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                          r.status === "scheduled"
+                            ? "bg-[#98f6c5]/50 text-[#006c48]"
+                            : r.status === "called"
+                              ? "bg-[#ffdcc3]/70 text-[#a34a24]"
+                              : r.status === "declined"
+                                ? "bg-[#ffdad6] text-[#93000a]"
+                                : "bg-[#d6e3ff] text-[#1a365d]"
+                        }`}
+                      >
+                        {r.status}
+                      </span>
+                    )}
                     {cfg.allowEdit === false ? (
                       <span className="block truncate font-semibold text-navy-deep">
                         {String(r[cfg.list] ?? id).slice(0, 90)}

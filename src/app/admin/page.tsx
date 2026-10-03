@@ -47,6 +47,11 @@ export default async function AdminHome() {
       return count ?? 0;
     }),
   );
+  const { count: fresh } = await sb
+    .from("consultation_submissions")
+    .select("*", { count: "exact", head: true })
+    .eq("status", "new");
+  const freshCount = fresh ?? 0;
   const total = counts.reduce((a, b) => a + b, 0);
   return (
     <Shell>
@@ -74,6 +79,11 @@ export default async function AdminHome() {
                 <Icon className="h-4.5 w-4.5" />
               </span>
               <span>
+                {t.name === "consultation_submissions" && freshCount > 0 && (
+                  <span className="mb-1 inline-flex items-center rounded-full bg-[#98f6c5]/60 px-2 py-0.5 text-[10px] font-black tracking-wider text-[#006c48] uppercase">
+                    {freshCount} new
+                  </span>
+                )}
                 <span className="block text-2xl font-bold tracking-tight tabular-nums">
                   {counts[i]}
                 </span>

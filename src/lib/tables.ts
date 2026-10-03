@@ -202,9 +202,11 @@ export const TABLES: Table[] = [
     desc: true,
     list: "name",
     allowNew: false,
-    allowEdit: false,
     allowDelete: true,
+    readonly: ["name", "phone", "exam", "level", "mode", "notes", "source", "created_at"],
+    allowEdit: true,
     fields: [
+      { name: "status", label: "Status", kind: "select", options: ["new", "called", "scheduled", "declined"] },
       { name: "name", label: "Student / parent", kind: "text" },
       { name: "phone", label: "Phone", kind: "text" },
       { name: "exam", label: "Target exam", kind: "select", options: ["JAMB / UTME Clinic", "WAEC / NECO Intensive", "JUPEB Direct Entry", "IELTS / SAT Prep", "CAPS Admissions Advisory", "CBT Simulator Lab Only"] },
