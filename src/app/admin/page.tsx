@@ -19,6 +19,8 @@ import {
   ClipboardList,
 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 const ICONS: Record<string, LucideIcon> = {
   site_settings: Settings2,
   tracks: Layers,
