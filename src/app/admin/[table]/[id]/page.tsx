@@ -6,6 +6,8 @@ import { adminClient } from "@/lib/supabase";
 import { table } from "@/lib/tables";
 import { RowForm } from "@/components/row-form";
 
+export const dynamic = "force-dynamic";
+
 export default async function EditPage({
   params,
 }: {

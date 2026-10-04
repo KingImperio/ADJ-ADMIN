@@ -261,7 +261,11 @@ export function RowForm({
               )}
             </div>
           ))}
-          {(err || jsonErr) && <p className="mb-4 text-[13px] font-semibold text-danger">{jsonErr || err}</p>}
+          {(err || jsonErr) && (
+            <p role="alert" className="mb-4 text-[13px] font-semibold text-danger">
+              {jsonErr || err}
+            </p>
+          )}
           <button
             disabled={busy}
             className="rounded-xl bg-pine px-6 py-3 text-sm font-bold text-white shadow-md transition-all hover:bg-pine-deep active:scale-[0.99] disabled:opacity-60"
