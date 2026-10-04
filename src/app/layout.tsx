@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-export const metadata: Metadata = { title: "ADJ Content Admin" };
+export const metadata: Metadata = {
+  title: "ADJ Content Admin",
+  robots: { index: false, follow: false },
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
