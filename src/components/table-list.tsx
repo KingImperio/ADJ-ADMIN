@@ -46,6 +46,7 @@ export function TableList({
         <span className="flex items-center gap-2 rounded-xl border border-line bg-white px-3 py-2 text-sm focus-within:border-navy">
           <Search className="h-4 w-4 text-faint" />
           <input
+            aria-label={`Search ${cfg.label}`}
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder={`Search ${cfg.name === "consultation_submissions" ? "name, phone, course" : "title, key"}…`}
