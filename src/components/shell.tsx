@@ -56,8 +56,8 @@ export async function Shell({
           <Image
             src="/adj-logo.png"
             alt="ADJ logo"
-            width={1536}
-            height={1536}
+            width={512}
+            height={512}
             className="h-10 w-10 rounded-full border border-[#D5A11E]/45 bg-white object-cover p-0.5"
           />
           <span>
