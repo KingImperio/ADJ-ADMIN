@@ -19,20 +19,25 @@
 
 :root {
   /* ADJ brand, AkmanOS card language */
-  --navy: #1a365d;
-  --navy-deep: #002045;
-  --pine: #006c48;
-  --pine-deep: #00734d;
-  --mist: #98f6c5;
-  --cream: #fffdf7;
-  --goldsoft: #ffdcc3;
-  --background: #f4f6fb;
-  --foreground: #131b2e;
+  --navy: #0B237F;
+  --navy-deep: #071858;
+  --pine: #D5A11E;
+  --pine-deep: #A87909;
+  --mist: #F5E5B5;
+  --cream: #FFFFFF;
+  --goldsoft: #F5E5B5;
+  --background: #F5F7FC;
+  --foreground: #101A3D;
   --card: #ffffff;
   --muted: #43474e;
   --faint: #74777f;
-  --line: #e2e7ff;
+  --line: #DCE2F2;
   --danger: #ba1a1a;
+}
+
+.adj-admin-pattern {
+  background-image: radial-gradient(rgba(11,35,127,.07) 1px, transparent 1px);
+  background-size: 18px 18px;
 }
 
 @font-face {

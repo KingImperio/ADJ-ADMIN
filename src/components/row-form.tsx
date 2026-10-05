@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import { Plus, Trash2, Wand2 } from "lucide-react";
 import { saveRow } from "@/lib/actions";
 import type { Table } from "@/lib/tables";
@@ -50,12 +50,26 @@ export function RowForm({
   row: Record<string, unknown>;
 }) {
   const [vals, setVals] = useState<Vals>(() => initial(table, row));
+  const [dirty, setDirty] = useState(false);
   const [jsonErr, setJsonErr] = useState("");
   const [err, act, busy] = useActionState(
     (_prev: string, form: FormData) => saveRow(table.name, id, form),
     "",
   );
-  const set = (name: string, v: string) => setVals((s) => ({ ...s, [name]: v }));
+  const set = (name: string, v: string) => {
+    setDirty(true);
+    setVals((s) => ({ ...s, [name]: v }));
+  };
+
+  useEffect(() => {
+    const warn = (event: BeforeUnloadEvent) => {
+      if (!dirty) return;
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", warn);
+    return () => window.removeEventListener("beforeunload", warn);
+  }, [dirty]);
 
   const submit = (form: FormData) => {
     for (const f of table.fields) {
@@ -83,10 +97,11 @@ export function RowForm({
     <form action={submit}>
       <div className="sticky top-0 z-10 -mx-4 border-b border-line bg-[#f4f6fb]/90 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
-          <p className="min-w-0 truncate text-sm text-muted">
+          <p className="flex min-w-0 items-center gap-2 truncate text-sm text-muted">
+            {dirty && <span className="h-2 w-2 shrink-0 rounded-full bg-[#D5A11E] shadow-[0_0_10px_rgba(213,161,30,.65)]" aria-hidden="true" />}
             {id ? (
               <>
-                Editing <span className="font-mono text-xs text-faint">{id}</span>
+                {dirty ? "Unsaved changes in" : "Editing"} <span className="font-mono text-xs text-faint">{id}</span>
               </>
             ) : (
               "New record — unsaved changes are lost if you leave"
@@ -94,7 +109,7 @@ export function RowForm({
           </p>
           <button
             disabled={busy}
-            className="shrink-0 rounded-xl bg-pine px-5 py-2.5 text-sm font-bold text-white shadow-md transition-all hover:bg-pine-deep active:scale-95 disabled:opacity-60"
+            className="shrink-0 rounded-xl bg-[#D5A11E] px-5 py-2.5 text-sm font-bold text-[#101A3D] shadow-md transition-all hover:-translate-y-0.5 hover:bg-[#e5b532] active:scale-95 disabled:opacity-60"
           >
             {busy ? "Saving…" : id ? "Save changes" : "Create"}
           </button>

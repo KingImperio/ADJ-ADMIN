@@ -59,14 +59,21 @@ export default async function AdminHome() {
   const total = counts.reduce((a, b) => a + b, 0);
   return (
     <Shell>
-      <p className="text-[11px] font-bold tracking-[0.14em] text-pine uppercase">Dashboard</p>
-      <h1 className="mt-1 text-2xl font-bold tracking-tight text-navy-deep">
-        Website content at a glance
-      </h1>
-      <p className="mt-1 text-sm text-muted">
-        {total} live records across {TABLES.length} tables. Edits publish to the site within
-        minutes.
-      </p>
+      <div className="adj-admin-pattern relative overflow-hidden rounded-3xl border border-[#dce2f2] bg-white p-6 shadow-[0_18px_45px_-30px_rgba(11,35,127,.4)] sm:p-8">
+        <div className="relative z-[1] max-w-2xl">
+          <p className="text-[11px] font-bold tracking-[0.14em] text-pine uppercase">ADJ operations desk</p>
+          <h1 className="mt-2 text-3xl font-bold tracking-tight text-navy-deep sm:text-4xl">Keep the academic experience current.</h1>
+          <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">Manage programmes, proof, FAQs, enquiries, and editorial content from one focused workspace.</p>
+        </div>
+        <div className="absolute -right-16 -top-20 h-64 w-64 rounded-full border-[18px] border-[#D5A11E]/15" aria-hidden="true" />
+      </div>
+      <div className="mt-6 flex items-end justify-between gap-4">
+        <div>
+          <p className="text-[11px] font-bold tracking-[0.14em] text-pine uppercase">Content overview</p>
+          <p className="mt-1 text-sm text-muted">{total} live records across {TABLES.length} tables. Edits publish within minutes.</p>
+        </div>
+        {freshCount > 0 && <Link href="/admin/consultation_submissions" className="rounded-xl bg-[#D5A11E] px-3 py-2 text-xs font-bold text-[#101A3D]">Review {freshCount} new enquiries</Link>}
+      </div>
       <div className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {TABLES.map((t, i) => {
           const Icon = ICONS[t.name] ?? FileText;

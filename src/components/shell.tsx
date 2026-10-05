@@ -51,14 +51,14 @@ export async function Shell({
   );
   return (
     <div className="flex min-h-screen">
-      <aside className="sticky top-0 flex h-screen w-60 shrink-0 flex-col bg-navy-deep text-white max-md:hidden">
+      <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col bg-navy-deep text-white max-md:hidden">
         <Link href="/admin" className="flex items-center gap-3 px-5 pt-6 pb-5">
           <Image
             src="/adj-logo.png"
             alt="ADJ logo"
-            width={676}
-            height={369}
-            className="h-10 w-10 rounded-xl border border-white/20 object-cover"
+            width={1536}
+            height={1536}
+            className="h-10 w-10 rounded-full border border-[#D5A11E]/45 bg-white object-cover p-0.5"
           />
           <span>
             <span className="block text-sm font-bold tracking-tight">ADJ Content</span>
@@ -67,9 +67,7 @@ export async function Shell({
         </Link>
         <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3 pb-4">
           <SideLink href="/admin" active={!current} icon={LayoutDashboard} label="Dashboard" />
-          <p className="px-3 pt-3 pb-1 text-[10px] font-bold tracking-[0.14em] text-white/40 uppercase">
-            Content
-          </p>
+          <p className="px-3 pt-6 pb-1 text-[10px] font-bold tracking-[0.14em] text-mist/65 uppercase">Manage</p>
           {TABLES.map((t, i) => (
             <SideLink
               key={t.name}
