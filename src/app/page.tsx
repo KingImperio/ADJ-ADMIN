@@ -53,7 +53,7 @@ export default function LoginPage() {
               className="w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-foreground placeholder:text-faint/70 focus:border-navy focus:outline-none"
             />
           </div>
-          {err && <p className="text-[13px] font-semibold text-danger">{err}</p>}
+          {err && <p role="alert" className="text-[13px] font-semibold text-danger">{err}</p>}
           <button
             disabled={busy}
             className="w-full rounded-xl bg-[#D5A11E] py-3 text-sm font-bold text-[#101A3D] shadow-md transition-all hover:bg-[#e5b532] active:scale-[0.99] disabled:opacity-60"

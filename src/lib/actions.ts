@@ -27,12 +27,19 @@ async function purge() {
 /* Login / logout (email + password; the admin user is created once via the
    Supabase dashboard or API). */
 export async function login(_prev: string, form: FormData): Promise<string> {
-  const sb = await sessionClient();
-  const { error } = await sb.auth.signInWithPassword({
-    email: String(form.get("email") ?? ""),
-    password: String(form.get("password") ?? ""),
-  });
-  if (error) return error.message;
+  try {
+    const sb = await sessionClient();
+    const { error } = await sb.auth.signInWithPassword({
+      email: String(form.get("email") ?? ""),
+      password: String(form.get("password") ?? ""),
+    });
+    if (error) return "Email or password is incorrect.";
+  } catch (error) {
+    if (error instanceof Error && error.message.startsWith("Missing required environment variable:")) {
+      return "The admin workspace is not configured in this environment yet. Contact the site administrator.";
+    }
+    throw error;
+  }
   redirect("/admin");
 }
 
@@ -61,7 +68,10 @@ function parse(name: string, form: FormData) {
 
 export async function saveRow(name: string, id: string | null, form: FormData): Promise<string> {
   await guard();
-  const cfg = table(name)!;
+  const cfg = table(name);
+  if (!cfg) return "This content type is not available.";
+  if (id && cfg.allowEdit === false) return "This record cannot be edited.";
+  if (!id && cfg.allowNew === false) return "New records are not available for this content type.";
   let row: Record<string, string | string[] | object>;
   try {
     row = parse(name, form);
@@ -80,10 +90,11 @@ export async function saveRow(name: string, id: string | null, form: FormData): 
 
 export async function removeRow(name: string, id: string): Promise<void> {
   await guard();
-  const cfg = table(name)!;
+  const cfg = table(name);
+  if (!cfg || !cfg.allowDelete) throw new Error("This record cannot be deleted.");
   const sb = adminClient();
   const { error } = await sb.from(name).delete().eq(cfg.pk, isNaN(Number(id)) ? id : Number(id));
-  if (error) throw new Error(error.message);
+  if (error) throw new Error("Could not delete this record.");
   await purge();
   revalidatePath(`/admin/${name}`);
   redirect(`/admin/${name}`);

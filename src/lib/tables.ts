@@ -62,6 +62,7 @@ export const TABLES: Table[] = [
     label: "Why-ADJ pillars",
     pk: "id",
     serial: true,
+    allowDelete: true,
     orderBy: "sort",
     list: "title",
     fields: [
@@ -79,6 +80,7 @@ export const TABLES: Table[] = [
     label: "Results wall",
     pk: "id",
     serial: true,
+    allowDelete: true,
     orderBy: "sort",
     list: "name",
     fields: [
@@ -98,6 +100,7 @@ export const TABLES: Table[] = [
     label: "Testimonials",
     pk: "id",
     serial: true,
+    allowDelete: true,
     orderBy: "sort",
     list: "name",
     fields: [
@@ -159,6 +162,7 @@ export const TABLES: Table[] = [
     label: "Hero metrics",
     pk: "id",
     serial: true,
+    allowDelete: true,
     orderBy: "sort",
     list: "label",
     fields: [
@@ -173,6 +177,7 @@ export const TABLES: Table[] = [
     label: "Catchment chips",
     pk: "id",
     serial: true,
+    allowDelete: true,
     orderBy: "sort",
     list: "name",
     fields: [
@@ -185,6 +190,7 @@ export const TABLES: Table[] = [
     label: "Direction steps",
     pk: "id",
     serial: true,
+    allowDelete: true,
     orderBy: "sort",
     list: "heading",
     fields: [
@@ -198,11 +204,11 @@ export const TABLES: Table[] = [
     label: "Booking requests",
     pk: "id",
     serial: true,
+    allowDelete: true,
     orderBy: "created_at",
     desc: true,
     list: "name",
     allowNew: false,
-    allowDelete: true,
     readonly: ["name", "phone", "exam", "level", "mode", "notes", "source", "created_at"],
     allowEdit: true,
     fields: [
