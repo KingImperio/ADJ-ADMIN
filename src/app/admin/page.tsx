@@ -59,18 +59,11 @@ export default async function AdminHome() {
   const total = counts.reduce((a, b) => a + b, 0);
   return (
     <Shell>
-      <div className="rise overflow-hidden border border-[#c9c7bf] bg-[#fffefa] shadow-[0_18px_45px_-34px_rgba(6,26,50,.36)]">
-        <div className="admin-kente-rule" aria-hidden="true" />
-        <div className="grid md:grid-cols-[1fr_260px]">
-          <div className="adj-admin-pattern p-6 sm:p-8">
+      <div className="admin-dashboard-surface rise overflow-hidden border border-[#c9c7bf] shadow-[0_18px_45px_-34px_rgba(6,26,50,.36)]">
+        <div className="p-6 sm:p-8">
             <p className="text-[11px] font-bold tracking-[0.14em] text-pine uppercase">ADJ operations desk</p>
             <h1 className="mt-3 max-w-xl font-serif text-3xl font-bold leading-tight text-navy-deep sm:text-4xl">Keep the academic experience current.</h1>
             <p className="mt-3 max-w-xl text-sm leading-relaxed text-muted">Manage programmes, proof, FAQs, enquiries, and editorial content from one focused workspace.</p>
-          </div>
-          <div className="admin-aso-panel relative hidden min-h-52 border-l border-[#c9c7bf] md:block">
-            <div className="absolute inset-0 bg-gradient-to-r from-[#09264d]/10 to-transparent" aria-hidden="true" />
-            <span className="absolute bottom-4 left-4 bg-[#faf9f5]/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-[0.12em] text-navy-deep">Woven in Nigeria</span>
-          </div>
         </div>
       </div>
       <div className="mt-6 flex items-end justify-between gap-4">
@@ -80,7 +73,6 @@ export default async function AdminHome() {
         </div>
         {freshCount > 0 && <Link href="/admin/consultation_submissions" className="border-b-2 border-[#bd851d] bg-[#f1dfb1] px-3 py-2 text-xs font-bold text-[#271a00]">Review {freshCount} new enquiries</Link>}
       </div>
-      <div className="admin-kente-rule mt-5 opacity-70" aria-hidden="true" />
       <div className="mt-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {TABLES.map((t, i) => {
           const Icon = ICONS[t.name] ?? FileText;

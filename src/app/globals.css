@@ -37,9 +37,10 @@
 
 .adj-admin-pattern {
   background-color: var(--cream);
-  background-image: linear-gradient(rgba(250,249,245,.86), rgba(250,249,245,.86)), url('/adire-indigo.webp');
+  background-image: linear-gradient(rgba(250,249,245,.93), rgba(250,249,245,.93)), url('/aso-oke-weave.webp');
   background-position: center, center;
-  background-size: cover, 520px auto;
+  background-size: cover, 1200px auto;
+  background-repeat: no-repeat, repeat;
 }
 
 .admin-textile-edge {
@@ -51,26 +52,32 @@
   z-index: -1;
   inset: 0;
   content: '';
-  background: url('/adire-indigo.webp') center / cover;
-  opacity: .12;
+  background: url('/adire-indigo.webp') center / 1100px auto repeat;
+  opacity: .035;
 }
-.admin-kente-rule {
-  height: 8px;
-  background: url('/kente-stripwork.webp') center 46% / auto 120px repeat-x;
+.admin-mobile-header {
+  background-color: #faf9f5;
+  background-image: linear-gradient(rgba(250,249,245,.97), rgba(250,249,245,.97)), url('/adire-indigo.webp');
+  background-size: cover, 900px auto;
 }
-.admin-aso-panel {
-  background: url('/aso-oke-weave.webp') center / cover;
+.admin-dashboard-surface {
+  background-color: #faf9f5;
+  background-image: linear-gradient(rgba(250,249,245,.91), rgba(250,249,245,.91)), url('/aso-oke-weave.webp');
+  background-position: center;
+  background-size: cover, 1100px auto;
 }
 .admin-sidebar {
   background: #09264d;
-  background-image: linear-gradient(rgba(9,38,77,.96), rgba(9,38,77,.96)), url('/adire-indigo.webp');
-  background-position: center, 40% bottom;
-  background-size: cover, 520px auto;
+  background-image: linear-gradient(rgba(9,38,77,.985), rgba(9,38,77,.985)), url('/adire-indigo.webp');
+  background-position: center, center;
+  background-size: cover, 1000px auto;
+  background-repeat: no-repeat, repeat;
 }
 .admin-login-loom {
-  background-image: linear-gradient(90deg, rgba(9,38,77,.12), rgba(9,38,77,.54)), url('/adire-indigo.webp');
+  background-image: linear-gradient(90deg, rgba(9,38,77,.91), rgba(9,38,77,.84)), url('/adire-indigo.webp');
   background-position: center;
-  background-size: cover;
+  background-size: cover, 1100px auto;
+  background-repeat: no-repeat, repeat;
 }
 
 @font-face {
