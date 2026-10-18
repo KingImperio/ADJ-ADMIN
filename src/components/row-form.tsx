@@ -38,7 +38,7 @@ const TONE_DOT: Record<string, string> = {
 };
 
 const inputCls =
-  "w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-sm text-foreground transition-colors placeholder:text-faint/70 focus:border-navy focus:outline-none read-only:bg-[#f2f3ff] read-only:text-muted";
+  "w-full rounded-sm border border-line bg-[#fffefa] px-3.5 py-2.5 text-sm text-foreground transition-colors placeholder:text-faint/70 focus:border-pine focus:outline-none focus:ring-2 focus:ring-pine/15 read-only:bg-[#f2f0e8] read-only:text-muted";
 
 export function RowForm({
   table,
@@ -95,7 +95,8 @@ export function RowForm({
 
   return (
     <form action={submit}>
-      <div className="sticky top-0 z-10 -mx-4 border-b border-line bg-[#f4f6fb]/90 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
+      <div className="sticky top-0 z-10 -mx-4 border-b border-line bg-[#faf9f5]/95 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">
+        <div className="admin-kente-rule -mx-4 -mt-3 mb-3 sm:-mx-6" aria-hidden="true" />
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3">
           <p className="flex min-w-0 items-center gap-2 truncate text-sm text-muted">
             {dirty && <span className="h-2 w-2 shrink-0 rounded-full bg-[#D5A11E] shadow-[0_0_10px_rgba(213,161,30,.65)]" aria-hidden="true" />}
@@ -109,7 +110,7 @@ export function RowForm({
           </p>
           <button
             disabled={busy}
-            className="shrink-0 rounded-xl bg-[#D5A11E] px-5 py-2.5 text-sm font-bold text-[#101A3D] shadow-md transition-all hover:-translate-y-0.5 hover:bg-[#e5b532] active:scale-95 disabled:opacity-60"
+            className="shrink-0 rounded-sm bg-[#bd851d] px-5 py-2.5 text-sm font-bold text-[#10213b] transition-colors hover:bg-[#d5a948] disabled:opacity-60"
           >
             {busy ? "Saving…" : id ? "Save changes" : "Create"}
           </button>
@@ -117,7 +118,7 @@ export function RowForm({
       </div>
 
       <div className="mt-5 grid grid-cols-1 items-start gap-5 lg:grid-cols-5">
-        <div className="rise rounded-2xl border border-line bg-white p-5 sm:p-7 lg:col-span-3">
+        <div className="rise border border-line bg-[#fffefa] p-5 sm:p-7 lg:col-span-3">
           {table.fields.map((f) => (
             <div key={f.name} className="mb-6 last:mb-0">
               <label htmlFor={f.name} className="mb-1.5 block text-xs font-bold text-navy-deep">
@@ -243,7 +244,7 @@ export function RowForm({
               {f.kind === "json" && (
                 <>
                   <div className="overflow-hidden rounded-xl border border-line">
-                    <div className="flex items-center justify-between border-b border-line/60 bg-[#f7f8fd] px-3 py-1.5">
+                    <div className="flex items-center justify-between border-b border-line/60 bg-[#f2f0e8] px-3 py-1.5">
                       <span className="font-mono text-[11px] text-faint">JSON</span>
                       <button
                         type="button"
@@ -299,8 +300,9 @@ export function RowForm({
 
 function Preview({ table, vals }: { table: string; vals: Vals }) {
   return (
-    <div className="rise overflow-hidden rounded-2xl border border-line bg-white" style={{ animationDelay: "80ms" }}>
-      <p className="border-b border-line/60 bg-[#f7f8fd] px-5 py-2.5 text-[11px] font-bold tracking-wider text-faint uppercase">
+      <div className="rise overflow-hidden border border-line bg-[#fffefa]" style={{ animationDelay: "80ms" }}>
+      <div className="admin-kente-rule" aria-hidden="true" />
+      <p className="border-b border-line/60 bg-[#f2f0e8] px-5 py-2.5 text-[11px] font-bold tracking-wider text-faint uppercase">
         Live preview
       </p>
       <div className="p-5">

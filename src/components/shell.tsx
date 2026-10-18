@@ -50,8 +50,8 @@ export async function Shell({
     }),
   );
   return (
-    <div className="flex min-h-screen">
-      <aside className="sticky top-0 flex h-screen w-64 shrink-0 flex-col bg-navy-deep text-white max-md:hidden">
+    <div className="flex min-h-screen bg-[#faf9f5]">
+      <aside className="admin-sidebar sticky top-0 flex h-screen w-64 shrink-0 flex-col text-white max-md:hidden">
         <Link href="/admin" className="flex items-center gap-3 px-5 pt-6 pb-5">
           <Image
             src="/adj-logo.png"
@@ -65,6 +65,8 @@ export async function Shell({
             <span className="block text-[11px] tracking-widest text-mist/70 uppercase">Admin</span>
           </span>
         </Link>
+        <div className="admin-kente-rule mx-4 mb-3" aria-hidden="true" />
+        <p className="px-5 pb-2 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#f1dfb1]/75">The content loom</p>
         <nav className="flex flex-1 flex-col gap-0.5 overflow-y-auto px-3 pb-4">
           <SideLink href="/admin" active={!current} icon={LayoutDashboard} label="Dashboard" />
           <p className="px-3 pt-6 pb-1 text-[10px] font-bold tracking-[0.14em] text-mist/65 uppercase">Manage</p>
@@ -79,6 +81,7 @@ export async function Shell({
             />
           ))}
         </nav>
+        <div className="admin-aso-panel mx-3 mb-3 h-16 overflow-hidden border border-white/20" aria-hidden="true" />
         <form action={logout} className="border-t border-white/10 p-3">
           <button className="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] text-white/70 transition-colors hover:bg-white/10 hover:text-white">
             <LogOut className="h-4 w-4" />
@@ -87,7 +90,8 @@ export async function Shell({
         </form>
       </aside>
       <div className="min-w-0 flex-1">
-        <div className="sticky top-0 z-10 border-b border-line bg-cream/90 backdrop-blur md:hidden">
+        <div className="sticky top-0 z-10 border-b border-line bg-[#faf9f5]/95 backdrop-blur md:hidden">
+          <div className="admin-kente-rule" aria-hidden="true" />
           <div className="flex items-center justify-between px-4 py-3">
             <Link href="/admin" className="text-sm font-bold text-navy-deep">
               ADJ Content Admin
@@ -112,7 +116,7 @@ export async function Shell({
             ))}
           </nav>
         </div>
-        <main className="mx-auto max-w-5xl px-4 py-8 sm:px-6">{children}</main>
+        <main className="admin-textile-edge mx-auto min-h-screen max-w-6xl px-4 py-7 sm:px-6 sm:py-9">{children}</main>
       </div>
     </div>
   );
