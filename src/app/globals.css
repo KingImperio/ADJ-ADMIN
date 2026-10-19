@@ -19,25 +19,65 @@
 
 :root {
   /* ADJ brand, AkmanOS card language */
-  --navy: #0B237F;
-  --navy-deep: #071858;
-  --pine: #D5A11E;
-  --pine-deep: #A87909;
-  --mist: #F5E5B5;
-  --cream: #FFFFFF;
-  --goldsoft: #F5E5B5;
-  --background: #F5F7FC;
-  --foreground: #101A3D;
+  --navy: #09264d;
+  --navy-deep: #061a32;
+  --pine: #075b49;
+  --pine-deep: #064538;
+  --mist: #f1dfb1;
+  --cream: #faf9f5;
+  --goldsoft: #f1dfb1;
+  --background: #faf9f5;
+  --foreground: #10213b;
   --card: #ffffff;
-  --muted: #43474e;
-  --faint: #74777f;
-  --line: #DCE2F2;
+  --muted: #596577;
+  --faint: #6d7785;
+  --line: #c9c7bf;
   --danger: #ba1a1a;
 }
 
 .adj-admin-pattern {
-  background-image: radial-gradient(rgba(11,35,127,.07) 1px, transparent 1px);
-  background-size: 18px 18px;
+  background-color: var(--cream);
+  background-image: linear-gradient(rgba(250,249,245,.93), rgba(250,249,245,.93)), url('/aso-oke-weave.webp');
+  background-position: center, center;
+  background-size: cover, 1200px auto;
+  background-repeat: no-repeat, repeat;
+}
+
+.admin-textile-edge {
+  position: relative;
+  isolation: isolate;
+}
+.admin-textile-edge::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: '';
+  background: url('/adire-indigo.webp') center / 1100px auto repeat;
+  opacity: .035;
+}
+.admin-mobile-header {
+  background-color: #faf9f5;
+  background-image: linear-gradient(rgba(250,249,245,.97), rgba(250,249,245,.97)), url('/adire-indigo.webp');
+  background-size: cover, 900px auto;
+}
+.admin-dashboard-surface {
+  background-color: #faf9f5;
+  background-image: linear-gradient(rgba(250,249,245,.91), rgba(250,249,245,.91)), url('/aso-oke-weave.webp');
+  background-position: center;
+  background-size: cover, 1100px auto;
+}
+.admin-sidebar {
+  background: #09264d;
+  background-image: linear-gradient(rgba(9,38,77,.985), rgba(9,38,77,.985)), url('/adire-indigo.webp');
+  background-position: center, center;
+  background-size: cover, 1000px auto;
+  background-repeat: no-repeat, repeat;
+}
+.admin-login-loom {
+  background-image: linear-gradient(90deg, rgba(9,38,77,.91), rgba(9,38,77,.84)), url('/adire-indigo.webp');
+  background-position: center;
+  background-size: cover, 1100px auto;
+  background-repeat: no-repeat, repeat;
 }
 
 @font-face {
